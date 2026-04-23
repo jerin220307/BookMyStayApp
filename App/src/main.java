@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class main {
+public class Main {
     public static void main(String[] args) {
 
         RoomService rs = new RoomService();
@@ -14,6 +14,8 @@ public class main {
 
         Booking booking = new Booking(name, roomId);
 
-        rs.allocateRoom(booking);   // ✅ correct line
+        if (rs.validateBooking(name, roomId)) {
+            rs.allocateRoom(booking);
+        }
     }
 }
