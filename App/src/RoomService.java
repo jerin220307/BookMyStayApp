@@ -7,36 +7,25 @@ public class RoomService {
     static {
         rooms.put(1, new Room(1, "Single"));
         rooms.put(2, new Room(2, "Double"));
-        rooms.put(3, new Room(3, "Suite"));
     }
 
-    // Show all rooms
-    public void displayAllRooms() {
-        for (Room r : rooms.values()) {
-            System.out.println(r.id + " " + r.type + " Available: " + r.available);
-        }
-    }
+    // 👇 ADD THIS METHOD
+    public void allocateRoom(Booking booking) {
 
-    // Show only available rooms
-    public void displayAvailableRooms() {
-        for (Room r : rooms.values()) {
-            if (r.available) {
-                System.out.println(r.id + " " + r.type);
-            }
-        }
-    }
+        Room room = rooms.get(booking.roomId);
 
-    // Search by room type
-    public void searchByType(String type) {
-        boolean found = false;
-        for (Room r : rooms.values()) {
-            if (r.type.equalsIgnoreCase(type)) {
-                System.out.println("Found: " + r.id + " " + r.type + " Available: " + r.available);
-                found = true;
-            }
+        if (room == null) {
+            System.out.println("Invalid Room ID");
+            return;
         }
-        if (!found) {
-            System.out.println("No rooms found for type: " + type);
+
+        if (!room.available) {
+            System.out.println("Room already booked");
+            return;
         }
+
+        room.available = false;
+
+        System.out.println("Booking Confirmed for " + booking.name);
     }
 }
